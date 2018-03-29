@@ -10,6 +10,8 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.cyq7on.flowchart.view.DragView;
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.Logger;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Logger.addLogAdapter(new AndroidLogAdapter());
         setContentView(R.layout.activity_main);
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null){
