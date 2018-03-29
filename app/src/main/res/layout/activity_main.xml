@@ -33,6 +33,12 @@
             android:src="@drawable/circle" />
     </LinearLayout>
 
+    <Button
+        android:id="@+id/btnConnect"
+        android:background="@color/colorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
     <LinearLayout
         android:orientation="vertical"
         android:id="@+id/ll"

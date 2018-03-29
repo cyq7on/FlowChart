@@ -2,14 +2,13 @@ package com.cyq7on.flowchart.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.view.View;
 
+import com.cyq7on.flowchart.R;
+import com.cyq7on.flowchart.utils.PixTool;
 import com.orhanobut.logger.Logger;
-
-import cn.bmob.imdemo.util.PixTool;
 
 
 /**
@@ -18,20 +17,20 @@ import cn.bmob.imdemo.util.PixTool;
 
 public class DashArrow extends View {
 
-    Context context;
+    private Context context;
 
-    float x1 = 0;
-    float y1 = 0;
+    private float x1 = 0;
+    private float y1 = 0;
 
-    float x2 = 0;
-    float y2 = 0;
+    private float x2 = 0;
+    private float y2 = 0;
     private Paint paint;
     private Path path;
 
     private void init() {
         // 创建画笔
         paint = new Paint();
-        paint.setColor(Color.GRAY);  // 设置颜色
+        paint.setColor(getResources().getColor(R.color.colorPrimary));  // 设置颜色
         paint.setStrokeWidth(PixTool.dip2px(1));   // 设置宽度
         paint.setAntiAlias(true);   // 抗锯齿
         paint.setStyle(Paint.Style.STROKE);
@@ -72,7 +71,7 @@ public class DashArrow extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        Logger.d(x1+"\n"+y1+"\n"+x2+"\n"+y2);
+        Logger.d(x1 + "\n" + y1 + "\n" + x2 + "\n" + y2);
 
         path.moveTo(x1, y1);
 
@@ -81,7 +80,7 @@ public class DashArrow extends View {
         if (y2 - y1 < 0) {
             quaX = (x1 + x2) / 2;
             quaY = y2 - 100;
-        }else if (y2 - y1 < 50){
+        } else if (y2 - y1 < 50) {
             quaX = (x1 + x2) / 2;
             quaY = y1 - 50;
         }
@@ -105,8 +104,3 @@ public class DashArrow extends View {
 
 }
 
-/*
-作者：ONEWateR
-        链接：https://www.jianshu.com/p/e1e8af5c3a80
-        來源：简书
-        著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。*/

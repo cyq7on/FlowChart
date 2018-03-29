@@ -55,14 +55,13 @@ public class DragView extends ImageView {
                         int t = (int) (getTop() + yDistance);
                         int b = (int) (getBottom() + yDistance);
                         this.layout(l, t, r, b);
-
                     }
                     break;
                 case MotionEvent.ACTION_UP:
-//                    setPressed(false);
+                    setPressed(false);
                     break;
                 case MotionEvent.ACTION_CANCEL:
-//                    setPressed(false);
+                    setPressed(false);
                     break;
             }
             return true;
