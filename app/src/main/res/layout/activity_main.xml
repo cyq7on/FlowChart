@@ -76,13 +76,29 @@
             android:layout_height="wrap_content"
             android:hint="@string/et_cmd" />
 
-        <Button
-            android:id="@+id/btnConnect"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@color/colorPrimaryDark"
-            android:text="@string/btn_exe"
-            android:textColor="@android:color/white" />
+            android:layout_height="wrap_content">
+            <Button
+                android:layout_margin="2dp"
+                android:id="@+id/btnClear"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:background="@color/colorPrimaryDark"
+                android:text="@string/btn_clear"
+                android:textColor="@android:color/white" />
+            <Button
+                android:layout_margin="2dp"
+                android:id="@+id/btnConnect"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:background="@color/colorPrimaryDark"
+                android:text="@string/btn_exe"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+
     </LinearLayout>
 
 

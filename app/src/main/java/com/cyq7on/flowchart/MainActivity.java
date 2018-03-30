@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         final ImageView rectangle = findViewById(R.id.ivRectangle);
         final ImageView circle = findViewById(R.id.ivCircle);
         Button btnConnect = findViewById(R.id.btnConnect);
+        Button btnClear = findViewById(R.id.btnClear);
         rhombus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -68,6 +69,14 @@ public class MainActivity extends AppCompatActivity {
                     dragViewGroup.addView(dashArrow);
                 }
 
+            }
+        });
+
+        btnClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dragViewGroup.removeAllViews();
+                dragViewGroup.mMoveLayoutList.clear();
             }
         });
 
