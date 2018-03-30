@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         Logger.addLogAdapter(new AndroidLogAdapter());
         setContentView(R.layout.activity_main);
         ActionBar actionBar = getSupportActionBar();
-        if(actionBar != null){
+        if (actionBar != null) {
             actionBar.hide();
         }
 
@@ -36,58 +36,54 @@ public class MainActivity extends AppCompatActivity {
         rhombus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createView(view,R.drawable.rhombus);
+                createView(view, R.drawable.rhombus);
             }
         });
         rectangle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createView(view,R.drawable.rectangle);
+                createView(view, R.drawable.rectangle);
             }
         });
         circle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createView(view,R.drawable.circle);
+                createView(view, R.drawable.circle);
             }
         });
 
         btnConnect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int childCount = dragViewGroup.getChildCount();
-//                for (int i = 0; i < childCount - 1; i++) {
-//                for (int i = 0; i < 1; i++) {
-//                    View childAt1 = dragViewGroup.getChildAt(i);
-//                    View childAt2 = dragViewGroup.getChildAt(i + 1);
-//                    DashArrow dashArrow = new DashArrow(getApplicationContext(), childAt1, childAt2);
-//                    dragViewGroup.addView(dashArrow);
-//                }
-
-                dragViewGroup.addView(new DashArrow(getApplicationContext(), rhombus, rectangle));
-                dragViewGroup.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        dragViewGroup.addView(new DashArrow(getApplicationContext(), rectangle, circle));
-                    }
-                },1000);
+                int childCount = dragViewGroup.mMoveLayoutList.size();
+                DashArrow dashArrow;
+                for (int i = 0; i < childCount - 1; i++) {
+                    View childAt1 = dragViewGroup.mMoveLayoutList.get(i);
+                    View childAt2 = dragViewGroup.mMoveLayoutList.get(i + 1);
+                    dashArrow = new DashArrow(getApplicationContext(), childAt1, childAt2);
+                    dragViewGroup.addView(dashArrow);
+                    dashArrow = new DashArrow(getApplicationContext(),
+                            childAt1.getLeft() + childAt1.getWidth() / 2, childAt1.getBottom(),
+                            childAt2.getLeft() + childAt1.getWidth() / 2,childAt2.getTop());
+                    dragViewGroup.addView(dashArrow);
+                }
 
             }
         });
 
     }
 
-    private void createView(View view,int ResId) {
+    private void createView(View view, int ResId) {
         ImageView imageView = new ImageView(view.getContext());
         imageView.setImageResource(ResId);
-        ViewGroup.LayoutParams p = new ViewGroup.LayoutParams(view.getWidth(),view.getHeight());
+        ViewGroup.LayoutParams p = new ViewGroup.LayoutParams(view.getWidth(), view.getHeight());
         imageView.setLayoutParams(p);
-        dragViewGroup.addDragView(imageView,view.getLeft(),view.getTop(),view.getRight(),view.getBottom()
-        ,true,false);
+        dragViewGroup.addDragView(imageView, view.getLeft(), view.getTop(), view.getRight(), view.getBottom()
+                , false, false);
     }
 
-    private void showShortToast(CharSequence text){
-        Toast.makeText(this,text,Toast.LENGTH_SHORT).show();
+    private void showShortToast(CharSequence text) {
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
 
 }
