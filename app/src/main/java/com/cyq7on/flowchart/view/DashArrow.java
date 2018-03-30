@@ -112,13 +112,13 @@ public class DashArrow extends View {
             float y = y2 - length / 2;
             path.moveTo(x2, y);
             path.lineTo(x2, y + length);
-            path.lineTo(x2 - 23, (y + y + length) / 2);
+            path.lineTo(x2 - 28, (y + y + length) / 2);
         } else {
             //箭头方向向下
             float x = x2 - length / 2;
             path.moveTo(x, y2);
             path.lineTo(x + length, y2);
-            path.lineTo((x + x + length) / 2, y2 + 23);
+            path.lineTo(x2, y2 + 28);
         }
         path.close();
 
