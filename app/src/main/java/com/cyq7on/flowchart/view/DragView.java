@@ -6,7 +6,12 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+
+import com.orhanobut.logger.Logger;
 
 
 /**
@@ -34,8 +39,8 @@ public class DragView extends ImageView {
 
     private float downX;
     private float downY;
+    private int width,height;
 
-    private long downTime;
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -45,6 +50,8 @@ public class DragView extends ImageView {
                 case MotionEvent.ACTION_DOWN:
                     downX = event.getX();
                     downY = event.getY();
+                    width = getWidth();
+                    height = getHeight();
                     break;
                 case MotionEvent.ACTION_MOVE:
                     final float xDistance = event.getX() - downX;
@@ -54,8 +61,21 @@ public class DragView extends ImageView {
                         int r = (int) (getRight() + xDistance);
                         int t = (int) (getTop() + yDistance);
                         int b = (int) (getBottom() + yDistance);
-                        this.layout(l, t, r, b);
+                        /**
+                         * 不能使用layout()方法，来改变位置。
+                         * layout()虽然可以改变控件的位置， 但不会将位置信息保存到LayoutParams中。
+                         * 而调用addView往布局添加新的控件时，是根据LayoutParams来重新布局控件位置的。
+                         * 这里需要用另一种方法：先获取控件的LayoutParams，改变其中相关的值后，再设置回去。
+                         */
+//                        this.layout(l, t, r, b);
+                        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) getLayoutParams();
+                        params.setMargins(l,t,r,b);
+                        params.width = width;
+                        params.height = height;
+                        Logger.d(width +"\n" +height);
+                        setLayoutParams(params);
                     }
+
                     break;
                 case MotionEvent.ACTION_UP:
                     setPressed(false);

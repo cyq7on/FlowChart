@@ -2,15 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginEnd="15dp"
     android:layout_marginLeft="15dp"
-    android:layout_marginStart="15dp"
     android:layout_marginRight="15dp"
-    android:layout_marginEnd="15dp">
+    android:layout_marginStart="15dp">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <ImageView
             android:id="@+id/ivRhombus"
             android:layout_width="100dp"
@@ -35,18 +36,21 @@
 
     <Button
         android:id="@+id/btnConnect"
-        android:background="@color/colorPrimary"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <LinearLayout
-        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary" />
+    <!--
+            must set backgroud
+            虽然视觉上没有效果，但是消除了拖曳区域局限的bug
+            -->
+    <com.cyq7on.flowchart.view.DragViewGroup
         android:id="@+id/ll"
-        android:layout_weight="1"
         android:layout_width="0dp"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="#00ffffff">
 
-    </LinearLayout>
+    </com.cyq7on.flowchart.view.DragViewGroup>
 
 
 </LinearLayout>

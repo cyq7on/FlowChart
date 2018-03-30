@@ -4,20 +4,19 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.cyq7on.flowchart.view.DashArrow;
-import com.cyq7on.flowchart.view.DragView;
+import com.cyq7on.flowchart.view.DragViewGroup;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 
 public class MainActivity extends AppCompatActivity {
 
-    private LinearLayout linearLayout;
+    private DragViewGroup linearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,10 +78,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createView(View view,int ResId) {
-        DragView dragView = new DragView(view.getContext());
+        ImageView dragView = new ImageView(view.getContext());
         dragView.setImageResource(ResId);
-        ViewGroup.LayoutParams p = new ViewGroup.LayoutParams(view.getWidth(),view.getHeight());
-        linearLayout.addView(dragView,p);
+        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(view.getWidth(),view.getHeight());
+        dragView.setLayoutParams(p);
+        linearLayout.addDragView(dragView,view.getLeft(),view.getTop(),view.getRight(),view.getBottom()
+        ,true,false);
+//        linearLayout.addView(dragView,p);
+//        linearLayout.addView(dragView);
+//        linearLayout.addDragView(dragView.getId());
     }
 
     private void showShortToast(CharSequence text){
