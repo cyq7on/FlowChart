@@ -4,9 +4,9 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.cyq7on.flowchart.view.DashArrow;
@@ -16,7 +16,7 @@ import com.orhanobut.logger.Logger;
 
 public class MainActivity extends AppCompatActivity {
 
-    private DragViewGroup linearLayout;
+    private DragViewGroup dragViewGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
             actionBar.hide();
         }
 
-        linearLayout = findViewById(R.id.ll);
+        dragViewGroup = findViewById(R.id.ll);
         final ImageView rhombus = findViewById(R.id.ivRhombus);
         final ImageView rectangle = findViewById(R.id.ivRectangle);
         final ImageView circle = findViewById(R.id.ivCircle);
@@ -55,20 +55,20 @@ public class MainActivity extends AppCompatActivity {
         btnConnect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int childCount = linearLayout.getChildCount();
+                int childCount = dragViewGroup.getChildCount();
 //                for (int i = 0; i < childCount - 1; i++) {
 //                for (int i = 0; i < 1; i++) {
-//                    View childAt1 = linearLayout.getChildAt(i);
-//                    View childAt2 = linearLayout.getChildAt(i + 1);
+//                    View childAt1 = dragViewGroup.getChildAt(i);
+//                    View childAt2 = dragViewGroup.getChildAt(i + 1);
 //                    DashArrow dashArrow = new DashArrow(getApplicationContext(), childAt1, childAt2);
-//                    linearLayout.addView(dashArrow);
+//                    dragViewGroup.addView(dashArrow);
 //                }
 
-                linearLayout.addView(new DashArrow(getApplicationContext(), rhombus, rectangle));
-                linearLayout.postDelayed(new Runnable() {
+                dragViewGroup.addView(new DashArrow(getApplicationContext(), rhombus, rectangle));
+                dragViewGroup.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        linearLayout.addView(new DashArrow(getApplicationContext(), rectangle, circle));
+                        dragViewGroup.addView(new DashArrow(getApplicationContext(), rectangle, circle));
                     }
                 },1000);
 
@@ -78,15 +78,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createView(View view,int ResId) {
-        ImageView dragView = new ImageView(view.getContext());
-        dragView.setImageResource(ResId);
-        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(view.getWidth(),view.getHeight());
-        dragView.setLayoutParams(p);
-        linearLayout.addDragView(dragView,view.getLeft(),view.getTop(),view.getRight(),view.getBottom()
+        ImageView imageView = new ImageView(view.getContext());
+        imageView.setImageResource(ResId);
+        ViewGroup.LayoutParams p = new ViewGroup.LayoutParams(view.getWidth(),view.getHeight());
+        imageView.setLayoutParams(p);
+        dragViewGroup.addDragView(imageView,view.getLeft(),view.getTop(),view.getRight(),view.getBottom()
         ,true,false);
-//        linearLayout.addView(dragView,p);
-//        linearLayout.addView(dragView);
-//        linearLayout.addDragView(dragView.getId());
     }
 
     private void showShortToast(CharSequence text){

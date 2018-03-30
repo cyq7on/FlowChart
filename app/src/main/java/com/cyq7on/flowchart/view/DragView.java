@@ -19,6 +19,8 @@ import com.orhanobut.logger.Logger;
  *
  */
 
+@Deprecated
+
 public class DragView extends ImageView {
     public DragView(Context context) {
         super(context);

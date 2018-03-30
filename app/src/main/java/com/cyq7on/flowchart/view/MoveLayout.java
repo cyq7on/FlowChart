@@ -8,6 +8,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import com.cyq7on.flowchart.utils.PixTool;
+
 /**
  * Created by Robert on 2017/6/20.
  */
@@ -71,8 +73,8 @@ public class MoveLayout extends RelativeLayout {
     }
 
     private void init() {
-        screenHeight = 500;//getResources().getDisplayMetrics().heightPixels - 40;
-        screenWidth = 500;// getResources().getDisplayMetrics().widthPixels;
+        screenHeight = (int) (getResources().getDisplayMetrics().heightPixels - PixTool.getStatusBarHeight(getContext()));
+        screenWidth = getResources().getDisplayMetrics().widthPixels;
     }
 
     public void setViewWidthHeight(int width , int height) {
@@ -232,7 +234,7 @@ public class MoveLayout extends RelativeLayout {
         //todo: show delete icon
         mDeleteView.setVisibility(View.VISIBLE);
         //do delete
-        if(isInDeleteArea == false && oriRight > mDeleteWidth && oriTop < mDeleteHeight) {//delete
+        if(!isInDeleteArea && oriRight / 2 > mDeleteWidth && oriTop < mDeleteHeight) {//delete
             Log.e(TAG, "center: oriRight"+oriRight+  "  mDeleteWidth"+mDeleteWidth  +"  oriTop"+ oriTop+ "  mDeleteHeightv"+ mDeleteHeight);
             if(mListener != null) {
                 mListener.onDeleteMoveLayout(identity);
