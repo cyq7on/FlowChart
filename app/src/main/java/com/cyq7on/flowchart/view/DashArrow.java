@@ -25,6 +25,7 @@ public class DashArrow extends View {
     private float y2 = 0;
     private Paint paint;
     private Path path;
+    private boolean isNeedBezier = false;
 
     private void init() {
         // 创建画笔
@@ -74,16 +75,20 @@ public class DashArrow extends View {
 
         path.moveTo(x1, y1);
 
-        float quaX = x1 / 4;
-        float quaY = (y1 + y2) / 2;
-        if (y2 - y1 < 0) {
-            quaX = (x1 + x2) / 2;
-            quaY = y2 - 100;
-        } else if (y2 - y1 < 50) {
-            quaX = (x1 + x2) / 2;
-            quaY = y1 - 50;
+        if(isNeedBezier){
+            float quaX = x1 / 4;
+            float quaY = (y1 + y2) / 2;
+            if (y2 - y1 < 0) {
+                quaX = (x1 + x2) / 2;
+                quaY = y2 - 100;
+            } else if (y2 - y1 < 50) {
+                quaX = (x1 + x2) / 2;
+                quaY = y1 - 50;
+            }
+            path.quadTo(quaX, quaY, x2, y2);
+        }else {
+            path.lineTo(x2,y2);
         }
-        path.quadTo(quaX, quaY, x2, y2);
 
         canvas.drawPath(path, paint);
 

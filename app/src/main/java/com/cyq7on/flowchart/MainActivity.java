@@ -1,5 +1,6 @@
 package com.cyq7on.flowchart;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.cyq7on.flowchart.utils.PixTool;
 import com.cyq7on.flowchart.view.DashArrow;
 import com.cyq7on.flowchart.view.DragViewGroup;
 import com.orhanobut.logger.AndroidLogAdapter;
@@ -61,12 +63,16 @@ public class MainActivity extends AppCompatActivity {
                 for (int i = 0; i < childCount - 1; i++) {
                     View childAt1 = dragViewGroup.mMoveLayoutList.get(i);
                     View childAt2 = dragViewGroup.mMoveLayoutList.get(i + 1);
-
-                    dashArrow = new DashArrow(getApplicationContext(),
-                            childAt1.getLeft() + childAt1.getWidth() / 2, childAt1.getBottom(),
+                    Context context = getApplicationContext();
+                    float statusBarHeight = PixTool.getStatusBarHeight(context);
+                    dashArrow = new DashArrow(context,
+                            childAt1.getLeft() + childAt1.getWidth() / 2,
+                            childAt1.getBottom() - statusBarHeight,
                             childAt2.getLeft() + childAt1.getWidth() / 2,childAt2.getTop());
-                    dashArrow.setTag(true);
                     dragViewGroup.addView(dashArrow);
+                    //bug
+//                    dragViewGroup.addDragView(dashArrow, dashArrow.getLeft(), dashArrow.getTop(),
+//                            dashArrow.getRight(), dashArrow.getBottom(), false, false);
                 }
 
             }
