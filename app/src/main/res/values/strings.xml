@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">FlowChart</string>
+    <string name="btn_exe">执行</string>
+    <string name="et_cmd">请输入指令（ab&#8230;）</string>
 </resources>

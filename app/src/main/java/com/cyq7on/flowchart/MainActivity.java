@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
             actionBar.hide();
         }
 
-        dragViewGroup = findViewById(R.id.ll);
+        dragViewGroup = findViewById(R.id.dragViewGroup);
         final ImageView rhombus = findViewById(R.id.ivRhombus);
         final ImageView rectangle = findViewById(R.id.ivRectangle);
         final ImageView circle = findViewById(R.id.ivCircle);
