@@ -107,6 +107,7 @@ public class DashArrow extends View {
             //折线
             path.lineTo(x1 + dx,y1);
             path.lineTo(x1 + dx,y2);
+            path.lineTo(x2,y2);
 
         }else {
             path.lineTo(x2,y2);

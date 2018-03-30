@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         DashArrow dashArrow;
         Context context = getApplicationContext();
         float statusBarHeight = PixTool.getStatusBarHeight(context);
-        for (int i = 0; i < Math.min(chars.length,size) - 1; i++) {
+        for (int i = 0; i < Math.min(chars.length, size) - 1; i++) {
             int index1 = chars[i] - 'a';
             int index2 = chars[i + 1] - 'a';
 //            if(index2 > size - 1){
@@ -129,13 +129,15 @@ public class MainActivity extends AppCompatActivity {
             dragViewGroup.addView(dashArrow);
         }
 
-        if(chars.length > size && chars[chars.length - 1] == chars[0]){
+        if (chars.length > size && chars[chars.length - 1] == chars[0]) {
             View childAt1 = dragViewGroup.mMoveLayoutList.get(chars[chars.length - 2] - 'a');
             View childAt2 = dragViewGroup.mMoveLayoutList.get(chars[0] - 'a');
-            dashArrow = new DashArrow(context,
-                    childAt1.getLeft() + childAt1.getWidth() / 2,
-                    childAt1.getBottom() - statusBarHeight,
-                    childAt2.getLeft() + childAt1.getWidth() / 2, childAt2.getTop(),true);
+            float y1 = childAt1.getBottom() - statusBarHeight - childAt1.getHeight() / 2 +
+                    getResources().getDimension(R.dimen.dvg_margin);
+            float y2 = childAt2.getBottom() - statusBarHeight - childAt1.getHeight() / 2;
+            float margin = getResources().getDimension(R.dimen.line_margin);
+            dashArrow = new DashArrow(context, childAt1.getRight() - margin,
+                    y1, childAt2.getRight() - margin, y2, true);
             dragViewGroup.addView(dashArrow);
         }
     }
