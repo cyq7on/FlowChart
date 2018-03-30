@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -19,6 +20,7 @@ import com.orhanobut.logger.Logger;
 public class MainActivity extends AppCompatActivity {
 
     private DragViewGroup dragViewGroup;
+    private EditText etCmd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         final ImageView circle = findViewById(R.id.ivCircle);
         Button btnConnect = findViewById(R.id.btnConnect);
         Button btnClear = findViewById(R.id.btnClear);
+        etCmd = findViewById(R.id.etCmd);
         rhombus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,7 +61,8 @@ public class MainActivity extends AppCompatActivity {
         btnConnect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int childCount = dragViewGroup.mMoveLayoutList.size();
+                drawLine();
+                /*int childCount = dragViewGroup.mMoveLayoutList.size();
                 DashArrow dashArrow;
                 for (int i = 0; i < childCount - 1; i++) {
                     View childAt1 = dragViewGroup.mMoveLayoutList.get(i);
@@ -74,9 +78,10 @@ public class MainActivity extends AppCompatActivity {
 //                    dragViewGroup.addDragView(dashArrow, dashArrow.getLeft(), dashArrow.getTop(),
 //                            dashArrow.getRight(), dashArrow.getBottom(), false, false);
                 }
-
+*/
             }
         });
+
 
         btnClear.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,6 +91,53 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void drawLine() {
+        int size = dragViewGroup.mMoveLayoutList.size();
+        if (size < 2) {
+            showShortToast("请至少选择两个对象");
+            return;
+        }
+        String cmd = etCmd.getText().toString();
+        if (cmd.length() < 2 || cmd.length() > 5) {
+            showShortToast("指令长度非法");
+            return;
+        }
+        char[] chars = cmd.toCharArray();
+        DashArrow dashArrow;
+        Context context = getApplicationContext();
+        float statusBarHeight = PixTool.getStatusBarHeight(context);
+        for (int i = 0; i < Math.min(chars.length,size) - 1; i++) {
+            int index1 = chars[i] - 'a';
+            int index2 = chars[i + 1] - 'a';
+//            if(index2 > size - 1){
+//                return;
+//            }
+            if (index1 < 0 || index1 > 2 || index2 < 0 || index2 > 2) {
+                showShortToast("指令格式非法");
+                return;
+            }
+
+            View childAt1 = dragViewGroup.mMoveLayoutList.get(index1);
+            View childAt2 = dragViewGroup.mMoveLayoutList.get(index2);
+
+            dashArrow = new DashArrow(context,
+                    childAt1.getLeft() + childAt1.getWidth() / 2,
+                    childAt1.getBottom() - statusBarHeight,
+                    childAt2.getLeft() + childAt1.getWidth() / 2, childAt2.getTop());
+            dragViewGroup.addView(dashArrow);
+        }
+
+        if(chars.length > size && chars[chars.length - 1] == chars[0]){
+            View childAt1 = dragViewGroup.mMoveLayoutList.get(chars[chars.length - 2] - 'a');
+            View childAt2 = dragViewGroup.mMoveLayoutList.get(chars[0] - 'a');
+            dashArrow = new DashArrow(context,
+                    childAt1.getLeft() + childAt1.getWidth() / 2,
+                    childAt1.getBottom() - statusBarHeight,
+                    childAt2.getLeft() + childAt1.getWidth() / 2, childAt2.getTop(),true);
+            dragViewGroup.addView(dashArrow);
+        }
     }
 
     private void createView(View view, int ResId) {

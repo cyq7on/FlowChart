@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.cyq7on.flowchart.R;
 import com.cyq7on.flowchart.utils.PixTool;
+import com.orhanobut.logger.Logger;
 
 
 /**
@@ -26,6 +27,7 @@ public class DashArrow extends View {
     private Paint paint;
     private Path path;
     private boolean isNeedBezier = false;
+    private float dx = PixTool.dip2px(100);
 
     private void init() {
         // 创建画笔
@@ -50,6 +52,20 @@ public class DashArrow extends View {
         init();
     }
 
+    public DashArrow(Context context, float x1, float y1, float x2, float y2,boolean isNeedBezier) {
+        super(context);
+        this.context = context;
+
+        this.x1 = x1;
+        this.y1 = y1;
+
+        this.x2 = x2;
+        this.y2 = y2;
+
+        this.isNeedBezier = isNeedBezier;
+        init();
+    }
+
     public DashArrow(Context context, View startView, View endView) {
         super(context);
         this.context = context;
@@ -71,12 +87,13 @@ public class DashArrow extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-//        Logger.d(x1 + "\n" + y1 + "\n" + x2 + "\n" + y2);
+        Logger.d(isNeedBezier);
 
         path.moveTo(x1, y1);
 
         if(isNeedBezier){
-            float quaX = x1 / 4;
+            //贝塞尔曲线
+            /*float quaX = x1 / 4;
             float quaY = (y1 + y2) / 2;
             if (y2 - y1 < 0) {
                 quaX = (x1 + x2) / 2;
@@ -85,7 +102,12 @@ public class DashArrow extends View {
                 quaX = (x1 + x2) / 2;
                 quaY = y1 - 50;
             }
-            path.quadTo(quaX, quaY, x2, y2);
+            path.quadTo(quaX, quaY, x2, y2);*/
+
+            //折线
+            path.lineTo(x1 + dx,y1);
+            path.lineTo(x1 + dx,y2);
+
         }else {
             path.lineTo(x2,y2);
         }
@@ -106,5 +128,8 @@ public class DashArrow extends View {
         canvas.drawPath(path, paint);
     }
 
+    public void setNeedBezier(boolean needBezier) {
+        isNeedBezier = needBezier;
+    }
 }
 
