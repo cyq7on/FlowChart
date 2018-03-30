@@ -129,15 +129,16 @@ public class MainActivity extends AppCompatActivity {
             dragViewGroup.addView(dashArrow);
         }
 
+        //处理闭环
         if (chars.length > size && chars[chars.length - 1] == chars[0]) {
             View childAt1 = dragViewGroup.mMoveLayoutList.get(chars[chars.length - 2] - 'a');
             View childAt2 = dragViewGroup.mMoveLayoutList.get(chars[0] - 'a');
-            float y1 = childAt1.getBottom() - statusBarHeight - childAt1.getHeight() / 2 +
-                    getResources().getDimension(R.dimen.dvg_margin);
-            float y2 = childAt2.getBottom() - statusBarHeight - childAt1.getHeight() / 2;
+            float y1 = childAt1.getBottom() - childAt1.getHeight() / 2 ;
+            float y2 = childAt2.getBottom() - childAt1.getHeight() / 2 ;
             float margin = getResources().getDimension(R.dimen.line_margin);
             dashArrow = new DashArrow(context, childAt1.getRight() - margin,
-                    y1, childAt2.getRight() - margin, y2, true);
+                    y1, childAt2.getRight() - margin, y2);
+            dashArrow.setNeedBezier(true);
             dragViewGroup.addView(dashArrow);
         }
     }

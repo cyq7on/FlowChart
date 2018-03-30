@@ -8,7 +8,6 @@ import android.view.View;
 
 import com.cyq7on.flowchart.R;
 import com.cyq7on.flowchart.utils.PixTool;
-import com.orhanobut.logger.Logger;
 
 
 /**
@@ -52,19 +51,6 @@ public class DashArrow extends View {
         init();
     }
 
-    public DashArrow(Context context, float x1, float y1, float x2, float y2,boolean isNeedBezier) {
-        super(context);
-        this.context = context;
-
-        this.x1 = x1;
-        this.y1 = y1;
-
-        this.x2 = x2;
-        this.y2 = y2;
-
-        this.isNeedBezier = isNeedBezier;
-        init();
-    }
 
     public DashArrow(Context context, View startView, View endView) {
         super(context);
@@ -87,11 +73,10 @@ public class DashArrow extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        Logger.d(isNeedBezier);
 
         path.moveTo(x1, y1);
 
-        if(isNeedBezier){
+        if (isNeedBezier) {
             //贝塞尔曲线
             /*float quaX = x1 / 4;
             float quaY = (y1 + y2) / 2;
@@ -105,25 +90,34 @@ public class DashArrow extends View {
             path.quadTo(quaX, quaY, x2, y2);*/
 
             //折线
-            path.lineTo(x1 + dx,y1);
-            path.lineTo(x1 + dx,y2);
-            path.lineTo(x2,y2);
+            path.lineTo(x1 + dx, y1);
+            path.lineTo(x1 + dx, y2);
+            path.lineTo(x2, y2);
 
-        }else {
-            path.lineTo(x2,y2);
+        } else {
+            path.lineTo(x2, y2);
         }
 
         canvas.drawPath(path, paint);
 
         float length = 32;  // 三角形的边长
-        float x = x2 - length / 2;
         paint.setStyle(Paint.Style.FILL); //设置填满
         path.reset();
 
         // 画三角形
-        path.moveTo(x, y2);
-        path.lineTo(x + length, y2);
-        path.lineTo((x + x + length) / 2, y2 + 23);
+        if (isNeedBezier) {
+            //箭头方向向左
+            float y = y2 - length / 2;
+            path.moveTo(x2, y);
+            path.lineTo(x2, y + length);
+            path.lineTo(x2 - 23, (y + y + length) / 2);
+        } else {
+            //箭头方向向下
+            float x = x2 - length / 2;
+            path.moveTo(x, y2);
+            path.lineTo(x + length, y2);
+            path.lineTo((x + x + length) / 2, y2 + 23);
+        }
         path.close();
 
         canvas.drawPath(path, paint);
