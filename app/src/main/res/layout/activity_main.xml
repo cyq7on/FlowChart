@@ -19,24 +19,24 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/ivRhombus"
-                android:layout_width="100dp"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:src="@drawable/rhombus" />
-
-            <ImageView
+                android:layout_marginTop="20dp"
                 android:id="@+id/ivRectangle"
                 android:layout_width="100dp"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="100dp"
                 android:src="@drawable/rectangle" />
 
             <ImageView
+                android:layout_marginTop="20dp"
+                android:id="@+id/ivRhombus"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/rhombus" />
+
+            <ImageView
+                android:layout_marginTop="20dp"
                 android:id="@+id/ivCircle"
                 android:layout_width="100dp"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="100dp"
                 android:src="@drawable/circle" />
         </LinearLayout>
 

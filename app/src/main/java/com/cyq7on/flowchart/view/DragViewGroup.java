@@ -7,7 +7,6 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -143,8 +142,9 @@ public class DragViewGroup extends RelativeLayout implements MoveLayout.DeleteMo
         if (tempWidth < minwidth) tempWidth = minwidth;
         if (tempHeight < minheight) tempHeight = minheight;
 
-        //set postion
+        //set position
         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(tempWidth, tempHeight);
+
         lp.setMargins(left, top, 0, 0);
         moveLayout.setLayoutParams(lp);
 
@@ -152,8 +152,7 @@ public class DragViewGroup extends RelativeLayout implements MoveLayout.DeleteMo
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View dragSubView = inflater.inflate(R.layout.drag_sub_view, null);
         LinearLayout addYourViewHere = dragSubView.findViewById(R.id.add_your_view_here);
-        LinearLayout.LayoutParams lv = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        addYourViewHere.addView(selfView, lv);
+        addYourViewHere.addView(selfView);
 
         if (whitebg) {
             LinearLayout changeBg = dragSubView.findViewById(R.id.change_bg);
