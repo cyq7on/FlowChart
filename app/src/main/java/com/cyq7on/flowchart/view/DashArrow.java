@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.cyq7on.flowchart.R;
 import com.cyq7on.flowchart.utils.PixTool;
+import com.orhanobut.logger.Logger;
 
 
 /**
@@ -73,6 +74,7 @@ public class DashArrow extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        Logger.d(System.currentTimeMillis());
 
         path.moveTo(x1, y1);
 

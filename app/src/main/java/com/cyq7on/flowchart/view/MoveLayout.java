@@ -234,7 +234,7 @@ public class MoveLayout extends RelativeLayout {
         //todo: show delete icon
         mDeleteView.setVisibility(View.VISIBLE);
         //do delete
-        if(!isInDeleteArea && oriRight / 1.5 > mDeleteWidth && oriTop < mDeleteHeight) {//delete
+        if(!isInDeleteArea && oriRight > mDeleteWidth && oriTop < mDeleteHeight) {//delete
             Log.e(TAG, "center: oriRight"+oriRight+  "  mDeleteWidth"+mDeleteWidth  +"  oriTop"+ oriTop+ "  mDeleteHeightv"+ mDeleteHeight);
             if(mListener != null) {
                 mListener.onDeleteMoveLayout(identity);
