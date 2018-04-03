@@ -127,6 +127,8 @@ public class MainActivity extends AppCompatActivity {
                     childAt1.getBottom() - statusBarHeight,
                     childAt2.getLeft() + childAt1.getWidth() / 2, childAt2.getTop());
             dragViewGroup.addView(dashArrow);
+/*            dragViewGroup.addDragView(dashArrow, dashArrow.getLeft(), dashArrow.getTop(),
+                            dashArrow.getRight(), dashArrow.getBottom(), false, false);*/
         }
 
         //处理闭环

@@ -80,7 +80,6 @@ public class DragViewGroup extends RelativeLayout implements MoveLayout.DeleteMo
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        //  Log.e(TAG, "onDraw: height=" + getHeight());
         mSelfViewWidth = getWidth();
         mSelfViewHeight = getHeight();
 

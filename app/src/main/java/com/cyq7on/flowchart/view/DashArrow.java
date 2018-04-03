@@ -35,8 +35,6 @@ public class DashArrow extends View {
         paint.setColor(getResources().getColor(R.color.colorPrimary));  // 设置颜色
         paint.setStrokeWidth(PixTool.dip2px(1));   // 设置宽度
         paint.setAntiAlias(true);   // 抗锯齿
-        paint.setStyle(Paint.Style.STROKE);
-
         path = new Path();
     }
 
@@ -74,8 +72,7 @@ public class DashArrow extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        Logger.d(System.currentTimeMillis());
-
+        paint.setStyle(Paint.Style.STROKE);
         path.moveTo(x1, y1);
 
         if (isNeedBezier) {
